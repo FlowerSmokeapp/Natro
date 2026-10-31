@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1230">
-<meta name="description" content="NATRO – find din bedste sengetid ud fra søvncyklusser, aftenrutine, blid vækning og søvnlog.">
+<meta name="description" content="NATRO – find your best bedtime based on sleep cycles, with an evening routine, gentle wake-up and sleep log.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="NATRO">
 <script>
-(function(){ // På computer: vis appen i en telefon-ramme
+(function(){ // On desktop: show the app in a phone frame
   var standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
   var desktop = matchMedia('(min-width: 600px) and (min-height: 700px) and (hover: hover) and (pointer: fine)').matches;
   var framed = window.top !== window.self;
@@ -21,7 +21,7 @@
   if(desktop && !standalone && !framed && location.protocol.indexOf('http')===0 && !/[?&]app/.test(location.search)) location.replace('desktop.html');
 })();
 </script>
-<title>NATRO – søvnrutine og vækning</title>
+<title>NATRO – sleep routine &amp; wake-up</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -133,10 +133,10 @@ ul.feat li:before{content:"✦";color:var(--gold)}
 <div class="ring" id="ring">
   <div style="font-size:48px">☀️</div>
   <div class="t" id="ringTime">07:00</div>
-  <div id="ringMsg" style="font-weight:700;max-width:320px">Godmorgen. Lyset og lyden er skruet langsomt op.</div>
+  <div id="ringMsg" style="font-weight:700;max-width:320px">Good morning. The light and sound have been turned up slowly.</div>
   <div class="row" style="width:100%;max-width:320px">
     <button class="btn ghost" id="snooze">Snooze 9 min</button>
-    <button class="btn" id="stopAlarm">Jeg er vågen</button>
+    <button class="btn" id="stopAlarm">I'm awake</button>
   </div>
 </div>
 
@@ -146,17 +146,17 @@ ul.feat li:before{content:"✦";color:var(--gold)}
       <svg viewBox="0 0 32 32"><path d="M21 4a12 12 0 1 0 7 21A10 10 0 0 1 21 4z" fill="#c9b6ff"/><circle cx="24" cy="9" r="1.4" fill="#ffd88a"/><circle cx="27" cy="15" r="1" fill="#ffd88a"/></svg>
       NATRO
     </div>
-    <div class="clock"><b id="now">--:--</b><span id="mode">Aftentilstand</span></div>
+    <div class="clock"><b id="now">--:--</b><span id="mode">Evening mode</span></div>
   </header>
 
-  <!-- BEREGN -->
+  <!-- BEDTIME -->
   <section class="view on" id="v-calc">
     <div class="card">
-      <h2>Hvornår skal du op?</h2>
-      <p class="sub">NATRO regner baglæns i søvncyklusser på 90 minutter og lægger 15 minutter til at falde i søvn.</p>
+      <h2>When do you need to get up?</h2>
+      <p class="sub">NATRO counts back in 90-minute sleep cycles and adds 15 minutes to fall asleep.</p>
       <div class="seg" id="calcMode">
-        <button class="on" data-m="wake">Jeg skal op kl.</button>
-        <button data-m="now">Jeg går i seng nu</button>
+        <button class="on" data-m="wake">I wake up at</button>
+        <button data-m="now">I'm going to bed now</button>
       </div>
       <div id="wakeInput">
         <input type="time" class="big" id="wakeTime" value="07:00">
@@ -165,26 +165,26 @@ ul.feat li:before{content:"✦";color:var(--gold)}
     </div>
     <div class="card">
       <div class="between">
-        <div><h3 style="margin:0">Hvorfor cyklusser?</h3>
-        <p class="sub" style="margin:4px 0 0">Vågner du mellem to cyklusser, er du i let søvn og føler dig mere udhvilet. 5–6 cyklusser (7½–9 t) passer til de fleste voksne.</p></div>
+        <div><h3 style="margin:0">Why cycles?</h3>
+        <p class="sub" style="margin:4px 0 0">Waking up between two cycles means you are in light sleep and feel more rested. 5–6 cycles (7½–9 h) suit most adults.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- RUTINE -->
+  <!-- ROUTINE -->
   <section class="view" id="v-routine">
     <div class="card">
-      <div class="between"><div><h2>Aftenrutine</h2>
-      <p class="sub" style="margin:0">Sengetid i aften: <b id="rBed">--:--</b></p></div>
+      <div class="between"><div><h2>Evening routine</h2>
+      <p class="sub" style="margin:0">Bedtime tonight: <b id="rBed">--:--</b></p></div>
       <label class="switch"><input type="checkbox" id="remOn" checked><span></span></label></div>
-      <p class="muted" style="margin:8px 0 6px">Påmindelser vises her i appen, mens den er åben.</p>
+      <p class="muted" style="margin:8px 0 6px">Reminders appear here in the app while it is open.</p>
       <div id="routineList"></div>
-      <button class="btn ghost" id="resetRoutine" style="margin-top:12px">Nulstil til i aften</button>
+      <button class="btn ghost" id="resetRoutine" style="margin-top:12px">Reset for tonight</button>
     </div>
     <div class="card">
       <div class="between">
-        <div><h3 style="margin:0">Dæmp skærmen om aftenen</h3>
-        <p class="sub" style="margin:4px 0 0">Skærmen dæmpes automatisk fra kl. <b id="dimFromLbl">21:00</b> til kl. 06:00.</p></div>
+        <div><h3 style="margin:0">Dim the screen in the evening</h3>
+        <p class="sub" style="margin:4px 0 0">The screen dims automatically from <b id="dimFromLbl">21:00</b> to 06:00.</p></div>
         <label class="switch"><input type="checkbox" id="autoDim" checked><span></span></label>
       </div>
       <div class="row" style="margin-top:12px;align-items:center">
@@ -194,52 +194,52 @@ ul.feat li:before{content:"✦";color:var(--gold)}
     </div>
   </section>
 
-  <!-- VÆKNING -->
+  <!-- WAKE-UP -->
   <section class="view" id="v-alarm">
     <div class="card">
-      <div class="between"><h2>Vækkeur</h2><span class="tag" id="alarmPlan">Gratis · 1 vækkeur</span></div>
+      <div class="between"><h2>Alarm</h2><span class="tag" id="alarmPlan">Free · 1 alarm</span></div>
       <div class="alarm-big" id="alarmShow">07:00</div>
       <div class="row">
-        <div><label>Seneste vækketid</label><input type="time" id="alarmTime" value="07:00"></div>
-        <div><label>Blid vækning over</label>
-          <select id="alarmWindow"><option value="0">Fast tid</option><option value="10">10 min</option><option value="20">20 min</option><option value="30" selected>30 min</option></select></div>
+        <div><label>Latest wake-up time</label><input type="time" id="alarmTime" value="07:00"></div>
+        <div><label>Gentle wake-up over</label>
+          <select id="alarmWindow"><option value="0">Fixed time</option><option value="10">10 min</option><option value="20">20 min</option><option value="30" selected>30 min</option></select></div>
       </div>
-      <p class="muted" id="alarmDesc" style="margin:12px 0">Lyd og lys skrues gradvist op fra 06:30 til 07:00.</p>
+      <p class="muted" id="alarmDesc" style="margin:12px 0">Sound is turned up gradually from 06:30 to 07:00.</p>
       <div class="between" style="margin-bottom:12px">
-        <div><b>Vækning efter søvnfase</b> <span class="tag p">Premium</span>
-        <div class="muted">Vækker dig i let søvn inden for tidsrummet.</div></div>
+        <div><b>Sleep-phase wake-up</b> <span class="tag p">Premium</span>
+        <div class="muted">Wakes you during light sleep within the window.</div></div>
         <label class="switch"><input type="checkbox" id="phaseWake"><span></span></label>
       </div>
       <div class="row">
-        <button class="btn" id="alarmToggle">Slå vækkeur til</button>
+        <button class="btn" id="alarmToggle">Turn alarm on</button>
         <button class="btn ghost" id="alarmTest" style="flex:0 0 auto;width:auto">Test</button>
       </div>
-      <p class="muted" style="margin:10px 0 0">Prototype: vækkeuret ringer kun, mens siden er åben.</p>
+      <p class="muted" style="margin:10px 0 0">Prototype: the alarm only rings while the page is open.</p>
     </div>
     <div class="card" id="extraAlarmCard">
-      <div class="between"><div><b>Flere vækkeure</b><div class="muted">Fx weekend og arbejdsdage</div></div><span class="tag p">Premium</span></div>
+      <div class="between"><div><b>More alarms</b><div class="muted">E.g. weekends and workdays</div></div><span class="tag p">Premium</span></div>
     </div>
   </section>
 
   <!-- LOG -->
   <section class="view" id="v-log">
     <div class="card">
-      <h2>Log nattens søvn</h2>
+      <h2>Log last night's sleep</h2>
       <div class="row" style="margin-top:10px">
-        <div><label>Lagde mig</label><input type="time" id="lBed" value="23:00"></div>
-        <div><label>Stod op</label><input type="time" id="lWake" value="07:00"></div>
+        <div><label>Went to bed</label><input type="time" id="lBed" value="23:00"></div>
+        <div><label>Got up</label><input type="time" id="lWake" value="07:00"></div>
       </div>
-      <label style="margin-top:12px">Hvordan føler du dig?</label>
+      <label style="margin-top:12px">How do you feel?</label>
       <div class="stars" id="lStars"></div>
-      <label style="margin-top:12px">Vågnede i løbet af natten</label>
-      <select id="lWakeups"><option value="0">Ingen gange</option><option value="1">1 gang</option><option value="2">2 gange</option><option value="3">3+ gange</option></select>
+      <label style="margin-top:12px">Woke up during the night</label>
+      <select id="lWakeups"><option value="0">Never</option><option value="1">Once</option><option value="2">Twice</option><option value="3">3+ times</option></select>
       <div class="between" style="margin:14px 0">
-        <div class="muted">Forventet score</div><div class="score" id="lPreview">–</div>
+        <div class="muted">Expected score</div><div class="score" id="lPreview">–</div>
       </div>
-      <button class="btn" id="lSave">Gem i søvnlog</button>
+      <button class="btn" id="lSave">Save to sleep log</button>
     </div>
     <div class="card">
-      <div class="between"><h3 style="margin:0">Søvnlog</h3><button class="btn ghost small" id="demoData">Eksempeldata</button></div>
+      <div class="between"><h3 style="margin:0">Sleep log</h3><button class="btn ghost small" id="demoData">Sample data</button></div>
       <div id="logList"></div>
     </div>
   </section>
@@ -248,50 +248,50 @@ ul.feat li:before{content:"✦";color:var(--gold)}
   <section class="view" id="v-prem">
     <div class="card prem-hero" id="premHero">
       <div class="tag p" style="display:inline-block">NATRO Premium</div>
-      <div class="price" style="margin-top:10px">39 kr.<small>/md.</small></div>
+      <div class="price" style="margin-top:10px">DKK 39<small>/mo</small></div>
       <ul class="feat">
-        <li>Søvnlyde – regn, hav, brun og hvid støj</li>
-        <li>Guidede afspændingsøvelser</li>
-        <li>Ugentlig søvnrapport</li>
-        <li>Vækning efter søvnfase</li>
+        <li>Sleep sounds – rain, ocean, brown and white noise</li>
+        <li>Guided relaxation exercises</li>
+        <li>Weekly sleep report</li>
+        <li>Sleep-phase wake-up</li>
       </ul>
-      <button class="btn" id="premBtn">Prøv Premium (demo)</button>
-      <p class="muted" style="margin:10px 0 0">Demo – der trækkes ingen betaling.</p>
+      <button class="btn" id="premBtn">Try Premium (demo)</button>
+      <p class="muted" style="margin:10px 0 0">Demo – no payment is taken.</p>
     </div>
 
     <div class="card lock" data-prem>
-      <div class="between"><h3 style="margin:0">Søvnlyde</h3><span class="tag p">Premium</span></div>
-      <p class="sub" style="margin-top:6px">Genereres direkte i appen. Slukker automatisk efter timeren.</p>
+      <div class="between"><h3 style="margin:0">Sleep sounds</h3><span class="tag p">Premium</span></div>
+      <p class="sub" style="margin-top:6px">Generated right in the app. Turns off automatically after the timer.</p>
       <div id="sounds"></div>
       <div class="row" style="align-items:center;margin-top:6px">
-        <div><label>Sluk efter</label><select id="sTimer"><option value="15">15 min</option><option value="30" selected>30 min</option><option value="60">60 min</option><option value="0">Aldrig</option></select></div>
-        <div><label>Lydstyrke</label><input type="range" id="sVol" min="0" max="100" value="45" style="width:100%;accent-color:#8fa8ff"></div>
+        <div><label>Turn off after</label><select id="sTimer"><option value="15">15 min</option><option value="30" selected>30 min</option><option value="60">60 min</option><option value="0">Never</option></select></div>
+        <div><label>Volume</label><input type="range" id="sVol" min="0" max="100" value="45" style="width:100%;accent-color:#8fa8ff"></div>
       </div>
     </div>
 
     <div class="card lock" data-prem>
-      <div class="between"><h3 style="margin:0">Afspænding</h3><span class="tag p">Premium</span></div>
+      <div class="between"><h3 style="margin:0">Relaxation</h3><span class="tag p">Premium</span></div>
       <div class="seg" id="relaxMode" style="margin-top:10px">
-        <button class="on" data-r="478">4-7-8 vejrtrækning</button>
-        <button data-r="body">Kropsscanning</button>
+        <button class="on" data-r="478">4-7-8 breathing</button>
+        <button data-r="body">Body scan</button>
       </div>
-      <div class="breath" id="breath">Klar</div>
-      <p class="sub" id="relaxText" style="text-align:center;min-height:40px">Træk vejret ind i 4 sek., hold i 7, pust ud i 8.</p>
-      <button class="btn" id="relaxBtn">Start øvelse</button>
+      <div class="breath" id="breath">Ready</div>
+      <p class="sub" id="relaxText" style="text-align:center;min-height:40px">Breathe in for 4 sec, hold for 7, breathe out for 8.</p>
+      <button class="btn" id="relaxBtn">Start exercise</button>
     </div>
 
     <div class="card lock" data-prem>
-      <div class="between"><h3 style="margin:0">Ugentlig søvnrapport</h3><span class="tag p">Premium</span></div>
+      <div class="between"><h3 style="margin:0">Weekly sleep report</h3><span class="tag p">Premium</span></div>
       <div id="report"></div>
     </div>
   </section>
 </div>
 
 <nav><div class="in">
-  <button class="on" data-v="calc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>Sengetid</button>
-  <button data-v="routine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Rutine</button>
-  <button data-v="alarm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3L2 6M19 3l3 3"/></svg>Vækning</button>
-  <button data-v="log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg>Søvnlog</button>
+  <button class="on" data-v="calc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>Bedtime</button>
+  <button data-v="routine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Routine</button>
+  <button data-v="alarm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3L2 6M19 3l3 3"/></svg>Wake-up</button>
+  <button data-v="log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg>Sleep log</button>
   <button data-v="prem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.6 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Premium</button>
 </div></nav>
 
@@ -308,7 +308,7 @@ const pad=n=>String(n).padStart(2,'0');
 const toMin=t=>{const[h,m]=t.split(':').map(Number);return h*60+m};
 const fmt=m=>{m=((m%1440)+1440)%1440;return pad(Math.floor(m/60))+':'+pad(m%60)};
 const nowMin=()=>{const d=new Date();return d.getHours()*60+d.getMinutes()};
-const dur=m=>`${Math.floor(m/60)} t ${m%60?m%60+' min':''}`.trim();
+const dur=m=>`${Math.floor(m/60)} h ${m%60?m%60+' min':''}`.trim();
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),4200)}
 
 /* stjerner i baggrunden */
@@ -330,27 +330,27 @@ function renderCalc(){
   if(calcMode==='wake'){
     const w=toMin(S.wake||'07:00');
     [6,5,4,3].forEach(c=>{const b=w-c*CYCLE-FALL;const best=c===(S.bedCycles||6);
-      h+=`<div class="opt ${best?'best':''}"><div><div class="t">${fmt(b)}</div><div class="m">${c} cyklusser · ${dur(c*CYCLE)} søvn</div></div>
-      ${c>=5?`<button class="btn small ${best?'':'ghost'}" data-c="${c}">${best?'Valgt':'Vælg'}</button>`:'<span class="m">Kort nat</span>'}</div>`});
-    out.innerHTML='<label>Gå i seng kl.</label>'+h;
-    out.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{S.bedCycles=+b.dataset.c;save();renderCalc();renderRoutine();toast('Sengetid sat til '+fmt(w-S.bedCycles*CYCLE-FALL))});
+      h+=`<div class="opt ${best?'best':''}"><div><div class="t">${fmt(b)}</div><div class="m">${c} cycles · ${dur(c*CYCLE)} sleep</div></div>
+      ${c>=5?`<button class="btn small ${best?'':'ghost'}" data-c="${c}">${best?'Selected':'Select'}</button>`:'<span class="m">Short night</span>'}</div>`});
+    out.innerHTML='<label>Go to bed at</label>'+h;
+    out.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{S.bedCycles=+b.dataset.c;save();renderCalc();renderRoutine();toast('Bedtime set to '+fmt(w-S.bedCycles*CYCLE-FALL))});
   }else{
     const n=nowMin();
     [6,5,4].forEach(c=>{const w=n+FALL+c*CYCLE;
-      h+=`<div class="opt ${c===5?'best':''}"><div><div class="t">${fmt(w)}</div><div class="m">${c} cyklusser · ${dur(c*CYCLE)} søvn</div></div>
-      <button class="btn small ghost" data-w="${fmt(w)}">Sæt vækkeur</button></div>`});
-    out.innerHTML='<label>Står du op kl.</label>'+h;
-    out.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{S.alarm.time=b.dataset.w;S.alarm.on=true;save();renderAlarm();toast('Vækkeur sat til '+b.dataset.w)});
+      h+=`<div class="opt ${c===5?'best':''}"><div><div class="t">${fmt(w)}</div><div class="m">${c} cycles · ${dur(c*CYCLE)} sleep</div></div>
+      <button class="btn small ghost" data-w="${fmt(w)}">Set alarm</button></div>`});
+    out.innerHTML='<label>Get up at</label>'+h;
+    out.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{S.alarm.time=b.dataset.w;S.alarm.on=true;save();renderAlarm();toast('Alarm set for '+b.dataset.w)});
   }
 }
 const bedMin=()=>toMin(S.wake)-(S.bedCycles||6)*CYCLE-FALL;
 
 /* RUTINE */
 const ROUTINE=[
-  {id:'screen',ic:'📵',t:'Skærm væk',off:60},
-  {id:'light',ic:'🕯️',t:'Tænd lys – dæmpet og varmt',off:45},
-  {id:'read',ic:'📖',t:'Læs en bog',off:30},
-  {id:'bed',ic:'🛏️',t:'I seng',off:0},
+  {id:'screen',ic:'📵',t:'Screens away',off:60},
+  {id:'light',ic:'🕯️',t:'Light a lamp – dim and warm',off:45},
+  {id:'read',ic:'📖',t:'Read a book',off:30},
+  {id:'bed',ic:'🛏️',t:'In bed',off:0},
 ];
 function today(){const d=new Date();if(d.getHours()<6)d.setDate(d.getDate()-1);return d.toISOString().slice(0,10)}
 if(!S.routine||S.routine.day!==today())S.routine={day:today(),done:{},fired:{}};
@@ -358,14 +358,14 @@ function renderRoutine(){
   const b=bedMin();$('#rBed').textContent=fmt(b);
   $('#routineList').innerHTML=ROUTINE.map(r=>{const d=S.routine.done[r.id];
     return `<label class="check ${d?'done':''}"><input type="checkbox" data-id="${r.id}" ${d?'checked':''}>
-    <span style="font-size:22px">${r.ic}</span><div><div class="ttl">${r.t}</div><div class="when">kl. ${fmt(b-r.off)}${r.off?' · '+r.off+' min før sengetid':''}</div></div></label>`}).join('');
+    <span style="font-size:22px">${r.ic}</span><div><div class="ttl">${r.t}</div><div class="when">at ${fmt(b-r.off)}${r.off?' · '+r.off+' min before bedtime':''}</div></div></label>`}).join('');
   $$('#routineList input').forEach(i=>i.onchange=()=>{S.routine.done[i.dataset.id]=i.checked;save();renderRoutine();
-    if(Object.values(S.routine.done).filter(Boolean).length===ROUTINE.length)toast('Rutinen er klaret. Sov godt 🌙')});
+    if(Object.values(S.routine.done).filter(Boolean).length===ROUTINE.length)toast('Routine done. Sleep well 🌙')});
 }
 $('#remOn').checked=S.remOn;$('#remOn').onchange=e=>{S.remOn=e.target.checked;save()};
 $('#resetRoutine').onclick=()=>{S.routine={day:today(),done:{},fired:{}};save();renderRoutine()};
 
-/* DÆMPNING */
+/* DIMMING */
 $('#autoDim').checked=S.autoDim;$('#dimFrom').value=S.dimFrom;$('#dimLevel').value=S.dimLevel;
 $('#autoDim').onchange=e=>{S.autoDim=e.target.checked;save();applyDim()};
 $('#dimFrom').oninput=e=>{S.dimFrom=e.target.value;save();applyDim()};
@@ -373,32 +373,32 @@ $('#dimLevel').oninput=e=>{S.dimLevel=+e.target.value;save();applyDim(true)};
 function isEvening(){const n=nowMin(),f=toMin(S.dimFrom);return f>360?(n>=f||n<360):(n>=f&&n<360)}
 function applyDim(preview){
   $('#dimFromLbl').textContent=S.dimFrom;
-  const ev=isEvening();$('#mode').textContent=ev?'Aftentilstand':'Dagtilstand';
+  const ev=isEvening();$('#mode').textContent=ev?'Evening mode':'Day mode';
   $('#dim').style.opacity=(S.autoDim&&(ev||preview))?S.dimLevel/100:0;
   if(preview&&!ev){clearTimeout(applyDim._h);applyDim._h=setTimeout(()=>applyDim(),1500)}
 }
 
-/* VÆKKEUR + LYD */
+/* ALARM + SOUND */
 let ctx=null;
 function audio(){if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)()}if(ctx.state==='suspended')ctx.resume();return ctx}
 function renderAlarm(){
   const a=S.alarm;$('#alarmTime').value=a.time;$('#alarmWindow').value=a.win;$('#alarmShow').textContent=a.time;
   $('#phaseWake').checked=a.phase&&S.premium;
-  $('#alarmToggle').textContent=a.on?'Slå vækkeur fra':'Slå vækkeur til';
+  $('#alarmToggle').textContent=a.on?'Turn alarm off':'Turn alarm on';
   $('#alarmShow').style.opacity=a.on?1:.4;
   const t=toMin(a.time);
-  $('#alarmDesc').textContent=a.win==0?`Vækkeuret ringer kl. ${a.time}.`:
-    (a.phase&&S.premium?`Du vækkes i let søvn mellem ${fmt(t-a.win)} og ${a.time} – blidt med stigende lyd.`:
-    `Lyd skrues gradvist op fra ${fmt(t-a.win)} til ${a.time}.`);
-  $('#alarmPlan').textContent=S.premium?'Premium':'Gratis · 1 vækkeur';
+  $('#alarmDesc').textContent=a.win==0?`The alarm rings at ${a.time}.`:
+    (a.phase&&S.premium?`You'll be woken in light sleep between ${fmt(t-a.win)} and ${a.time} – gently, with rising sound.`:
+    `Sound is turned up gradually from ${fmt(t-a.win)} to ${a.time}.`);
+  $('#alarmPlan').textContent=S.premium?'Premium':'Free · 1 alarm';
 }
 $('#alarmTime').oninput=e=>{S.alarm.time=e.target.value;save();renderAlarm()};
 $('#alarmWindow').onchange=e=>{S.alarm.win=+e.target.value;save();renderAlarm()};
-$('#phaseWake').onchange=e=>{if(!S.premium){e.target.checked=false;toast('Vækning efter søvnfase kræver Premium');return}S.alarm.phase=e.target.checked;save();renderAlarm()};
+$('#phaseWake').onchange=e=>{if(!S.premium){e.target.checked=false;toast('Sleep-phase wake-up requires Premium');return}S.alarm.phase=e.target.checked;save();renderAlarm()};
 $('#alarmToggle').onclick=()=>{audio();S.alarm.on=!S.alarm.on;S.alarm.firedDay=null;save();renderAlarm();
-  if(S.alarm.on){let m=toMin(S.alarm.time)-nowMin();if(m<=0)m+=1440;toast(`Vækkeur til – om ${dur(m)}`)}};
+  if(S.alarm.on){let m=toMin(S.alarm.time)-nowMin();if(m<=0)m+=1440;toast(`Alarm on – in ${dur(m)}`)}};
 $('#alarmTest').onclick=()=>{audio();ring(5000)};
-$('#extraAlarmCard').onclick=()=>{if(!S.premium)toast('Flere vækkeure kræver Premium')};
+$('#extraAlarmCard').onclick=()=>{if(!S.premium)toast('More alarms require Premium')};
 
 let ringNodes=null;
 function ring(rampMs){
@@ -412,8 +412,8 @@ function ring(rampMs){
   $('#ringTime').textContent=fmt(nowMin());$('#ring').classList.add('show');
 }
 function stopRing(){if(ringNodes){clearInterval(ringNodes.iv);ringNodes.g.disconnect();ringNodes=null}$('#ring').classList.remove('show')}
-$('#stopAlarm').onclick=()=>{stopRing();toast('Godmorgen! Husk at logge nattens søvn.');$('nav [data-v=log]').click()};
-$('#snooze').onclick=()=>{stopRing();S.alarm.snooze=Date.now()+9*60000;save();toast('Snooze – ringer igen om 9 min')};
+$('#stopAlarm').onclick=()=>{stopRing();toast('Good morning! Remember to log your sleep.');$('nav [data-v=log]').click()};
+$('#snooze').onclick=()=>{stopRing();S.alarm.snooze=Date.now()+9*60000;save();toast('Snoozed – rings again in 9 min')};
 
 /* LOG */
 let stars=3;
@@ -429,33 +429,33 @@ function preview(){const r=score($('#lBed').value,$('#lWake').value,stars,+$('#l
 $('#lSave').onclick=()=>{const r=score($('#lBed').value,$('#lWake').value,stars,+$('#lWakeups').value);
   const d=new Date();S.log=S.log.filter(x=>x.date!==d.toISOString().slice(0,10));
   S.log.unshift({date:d.toISOString().slice(0,10),bed:$('#lBed').value,wake:$('#lWake').value,q:stars,wk:+$('#lWakeups').value,score:r.score,min:r.d});
-  S.log.sort((a,b)=>b.date.localeCompare(a.date));save();renderLog();toast('Gemt · score '+r.score)};
+  S.log.sort((a,b)=>b.date.localeCompare(a.date));save();renderLog();toast('Saved · score '+r.score)};
 $('#demoData').onclick=()=>{const beds=['23:10','22:45','00:20','23:30','22:50','23:05','01:00'],wakes=['07:00','06:40','07:05','07:00','06:55','08:30','09:15'];
   S.log=beds.map((b,i)=>{const d=new Date();d.setDate(d.getDate()-i);const q=[4,4,2,3,5,4,3][i],wk=[0,1,2,1,0,0,1][i];const r=score(b,wakes[i],q,wk);
-    return{date:d.toISOString().slice(0,10),bed:b,wake:wakes[i],q,wk,score:r.score,min:r.d}});save();renderLog();toast('Eksempeldata for 7 nætter indsat')};
-const dayName=iso=>new Date(iso+'T12:00').toLocaleDateString('da-DK',{weekday:'short',day:'numeric',month:'short'});
+    return{date:d.toISOString().slice(0,10),bed:b,wake:wakes[i],q,wk,score:r.score,min:r.d}});save();renderLog();toast('Sample data for 7 nights added')};
+const dayName=iso=>new Date(iso+'T12:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
 function renderLog(){
   $('#logList').innerHTML=S.log.length?S.log.slice(0,14).map(x=>`<div class="log-item"><div class="score" style="border-color:${col(x.score)};color:${col(x.score)}">${x.score}</div>
     <div style="flex:1"><b style="text-transform:capitalize">${dayName(x.date)}</b><div class="muted">${x.bed} → ${x.wake} · ${dur(x.min)} · ${'★'.repeat(x.q)}</div></div>
-    <button class="btn ghost small" data-del="${x.date}">✕</button></div>`).join(''):'<p class="muted">Ingen nætter logget endnu.</p>';
+    <button class="btn ghost small" data-del="${x.date}">✕</button></div>`).join(''):'<p class="muted">No nights logged yet.</p>';
   $$('[data-del]').forEach(b=>b.onclick=()=>{S.log=S.log.filter(x=>x.date!==b.dataset.del);save();renderLog()});
   renderReport();
 }
 
 /* PREMIUM */
 function renderPrem(){
-  $('#premBtn').textContent=S.premium?'Premium aktiv – afslut demo':'Prøv Premium (demo)';
+  $('#premBtn').textContent=S.premium?'Premium active – end demo':'Try Premium (demo)';
   $$('[data-prem]').forEach(c=>{c.style.opacity=S.premium?1:.55;let m=c.querySelector('.lockmsg');
-    if(!S.premium&&!m){m=document.createElement('div');m.className='lockmsg';m.innerHTML='🔒 Lås op med Premium';c.appendChild(m)}
+    if(!S.premium&&!m){m=document.createElement('div');m.className='lockmsg';m.innerHTML='🔒 Unlock with Premium';c.appendChild(m)}
     if(S.premium&&m)m.remove()});
   renderAlarm();
 }
-$('#premBtn').onclick=()=>{S.premium=!S.premium;if(!S.premium){S.alarm.phase=false;stopSound();relaxStop()}save();renderPrem();renderReport();toast(S.premium?'Premium låst op ✨':'Tilbage på gratis')};
-const needPrem=()=>{if(!S.premium){toast('Kræver Premium – 39 kr./md.');$('#premHero').scrollIntoView({behavior:'smooth'});return true}return false};
+$('#premBtn').onclick=()=>{S.premium=!S.premium;if(!S.premium){S.alarm.phase=false;stopSound();relaxStop()}save();renderPrem();renderReport();toast(S.premium?'Premium unlocked ✨':'Back to free')};
+const needPrem=()=>{if(!S.premium){toast('Requires Premium – DKK 39/mo');$('#premHero').scrollIntoView({behavior:'smooth'});return true}return false};
 
-/* søvnlyde */
-const SOUNDS=[{id:'rain',ic:'🌧️',t:'Regn',d:'Blød, jævn regn'},{id:'sea',ic:'🌊',t:'Havbølger',d:'Langsomme bølger'},
-  {id:'brown',ic:'🟤',t:'Brun støj',d:'Dyb og rolig'},{id:'white',ic:'⚪',t:'Hvid støj',d:'Skjuler lyde udefra'}];
+/* sleep sounds */
+const SOUNDS=[{id:'rain',ic:'🌧️',t:'Rain',d:'Soft, steady rain'},{id:'sea',ic:'🌊',t:'Ocean waves',d:'Slow waves'},
+  {id:'brown',ic:'🟤',t:'Brown noise',d:'Deep and calm'},{id:'white',ic:'⚪',t:'White noise',d:'Masks outside sounds'}];
 let snd=null;
 function noiseBuf(c,type){const len=c.sampleRate*4,b=c.createBuffer(1,len,c.sampleRate),d=b.getChannelData(0);let last=0;
   for(let i=0;i<len;i++){const w=Math.random()*2-1;if(type==='white')d[i]=w*.5;else{last=(last+.02*w)/1.02;d[i]=last*3.5}}return b}
@@ -469,7 +469,7 @@ function playSound(id){
     lfo.connect(lg).connect(wg.gain);lfo.start();node.connect(wg);node=wg;src._lfo=lfo}
   const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=id==='white'?9000:id==='rain'?5000:900;
   node.connect(lp).connect(master);master.connect(c.destination);src.start();
-  snd={id,src,master};const m=+$('#sTimer').value;if(m)snd.timer=setTimeout(()=>{fadeOut();toast('Søvnlyd slukket')},m*60000);renderSounds();
+  snd={id,src,master};const m=+$('#sTimer').value;if(m)snd.timer=setTimeout(()=>{fadeOut();toast('Sleep sound turned off')},m*60000);renderSounds();
 }
 function fadeOut(){if(!snd)return;const c=audio(),s=snd;s.master.gain.linearRampToValueAtTime(0,c.currentTime+3);setTimeout(()=>{if(snd===s)stopSound()},3200)}
 function stopSound(){if(!snd)return;clearTimeout(snd.timer);try{snd.src.stop();snd.src._extra&&snd.src._extra.stop();snd.src._lfo&&snd.src._lfo.stop()}catch(e){}snd.master.disconnect();snd=null;renderSounds()}
@@ -478,19 +478,19 @@ function renderSounds(){$('#sounds').innerHTML=SOUNDS.map(s=>`<div class="sound 
   <div style="flex:1"><b>${s.t}</b><div class="muted">${s.d}</div></div><b>${snd&&snd.id===s.id?'❚❚':'▶'}</b></div>`).join('');
   $$('[data-s]').forEach(e=>e.onclick=()=>{if(needPrem())return;snd&&snd.id===e.dataset.s?stopSound():playSound(e.dataset.s)})}
 
-/* afspænding */
+/* relaxation */
 let relaxKind='478',relaxT=null;
-const BODY=['Læg dig godt til rette og luk øjnene.','Mærk dine fødder. Lad dem blive tunge og varme.','Slap af i læggene og knæene.','Lad lårene og hofterne synke ned i madrassen.',
-  'Mærk maven løfte sig og falde roligt.','Slip skuldrene – lad dem falde væk fra ørerne.','Slap af i armene, hænderne og fingrene.','Blødgør kæben, panden og området omkring øjnene.','Hele kroppen er tung og rolig. Bare træk vejret.'];
+const BODY=['Get comfortable and close your eyes.','Notice your feet. Let them grow heavy and warm.','Relax your calves and knees.','Let your thighs and hips sink into the mattress.',
+  'Feel your belly rise and fall calmly.','Let go of your shoulders – let them drop away from your ears.','Relax your arms, hands and fingers.','Soften your jaw, forehead and the area around your eyes.','Your whole body is heavy and calm. Just breathe.'];
 $$('#relaxMode button').forEach(b=>b.onclick=()=>{relaxStop();relaxKind=b.dataset.r;$$('#relaxMode button').forEach(x=>x.classList.toggle('on',x===b));
-  $('#relaxText').textContent=relaxKind==='478'?'Træk vejret ind i 4 sek., hold i 7, pust ud i 8.':'Ca. 3 minutters guidet kropsscanning fra fødder til hoved.'});
-function relaxStop(){clearTimeout(relaxT);relaxT=null;const b=$('#breath');b.style.transition='transform 1s';b.style.transform='scale(1)';b.textContent='Klar';$('#relaxBtn').textContent='Start øvelse'}
+  $('#relaxText').textContent=relaxKind==='478'?'Breathe in for 4 sec, hold for 7, breathe out for 8.':'About 3 minutes of guided body scan from feet to head.'});
+function relaxStop(){clearTimeout(relaxT);relaxT=null;const b=$('#breath');b.style.transition='transform 1s';b.style.transform='scale(1)';b.textContent='Ready';$('#relaxBtn').textContent='Start exercise'}
 $('#relaxBtn').onclick=()=>{if(needPrem())return;if(relaxT)return relaxStop();$('#relaxBtn').textContent='Stop';const b=$('#breath');
-  if(relaxKind==='478'){let round=0;const step=(i)=>{const ph=[['Ind',4,1.35],['Hold',7,1.35],['Ud',8,1]][i];
+  if(relaxKind==='478'){let round=0;const step=(i)=>{const ph=[['In',4,1.35],['Hold',7,1.35],['Out',8,1]][i];
       b.style.transition=`transform ${ph[1]}s ease-in-out`;b.style.transform=`scale(${ph[2]})`;let n=ph[1];b.textContent=ph[0]+' · '+n;
-      const tick=()=>{n--;if(n>0){b.textContent=ph[0]+' · '+n;relaxT=setTimeout(tick,1000)}else{if(i===2){round++;if(round>=4){relaxStop();$('#relaxText').textContent='Fire runder klaret. Godnat 🌙';return}}
-        $('#relaxText').textContent=`Runde ${round+1} af 4`;step((i+1)%3)}};relaxT=setTimeout(tick,1000)};$('#relaxText').textContent='Runde 1 af 4';step(0)}
-  else{let i=0;const nx=()=>{if(i>=BODY.length){relaxStop();$('#relaxText').textContent='Øvelsen er slut. Sov godt 🌙';return}
+      const tick=()=>{n--;if(n>0){b.textContent=ph[0]+' · '+n;relaxT=setTimeout(tick,1000)}else{if(i===2){round++;if(round>=4){relaxStop();$('#relaxText').textContent='Four rounds done. Good night 🌙';return}}
+        $('#relaxText').textContent=`Round ${round+1} of 4`;step((i+1)%3)}};relaxT=setTimeout(tick,1000)};$('#relaxText').textContent='Round 1 of 4';step(0)}
+  else{let i=0;const nx=()=>{if(i>=BODY.length){relaxStop();$('#relaxText').textContent='Exercise finished. Sleep well 🌙';return}
       $('#relaxText').textContent=BODY[i];b.textContent=(i+1)+'/'+BODY.length;b.style.transition='transform 10s ease-in-out';b.style.transform=`scale(${i%2?1:1.25})`;i++;relaxT=setTimeout(nx,20000)};nx()}};
 
 /* rapport */
@@ -498,29 +498,29 @@ function renderReport(){
   const el=$('#report');
   const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));const iso=d.toISOString().slice(0,10);return{iso,e:S.log.find(x=>x.date===iso)}});
   const got=days.filter(d=>d.e);
-  if(!got.length){el.innerHTML='<p class="sub" style="margin-top:8px">Log et par nætter (eller indsæt eksempeldata under Søvnlog) for at se din uge.</p>';return}
+  if(!got.length){el.innerHTML='<p class="sub" style="margin-top:8px">Log a few nights (or add sample data under Sleep log) to see your week.</p>';return}
   const avgH=got.reduce((a,d)=>a+d.e.min,0)/got.length,avgS=Math.round(got.reduce((a,d)=>a+d.e.score,0)/got.length);
   const beds=got.map(d=>{let m=toMin(d.e.bed);return m<720?m+1440:m});const mean=beds.reduce((a,b)=>a+b,0)/beds.length;
   const sd=Math.round(Math.sqrt(beds.reduce((a,b)=>a+(b-mean)**2,0)/beds.length));
   const best=got.reduce((a,d)=>d.e.score>a.e.score?d:a);
-  const tip=sd>45?`Din sengetid svinger ±${sd} min. Prøv at gå i seng inden for 30 min af ${fmt(bedMin())} hver aften.`:
-    avgH<420?'Du sover i gennemsnit under 7 timer. Ryk sengetiden én cyklus (90 min) tidligere et par aftener.':'Flot stabil uge. Hold fast i aftenrutinen.';
-  el.innerHTML=`<div class="stat"><div><b>${Math.floor(avgH/60)}:${pad(Math.round(avgH%60))}</b><span>Gns. søvn</span></div><div><b style="color:${col(avgS)}">${avgS}</b><span>Gns. score</span></div><div><b>±${sd}m</b><span>Sengetid</span></div></div>
+  const tip=sd>45?`Your bedtime varies by ±${sd} min. Try going to bed within 30 min of ${fmt(bedMin())} every evening.`:
+    avgH<420?'You sleep less than 7 hours on average. Move your bedtime one cycle (90 min) earlier a few evenings.':'Nice, steady week. Stick with your evening routine.';
+  el.innerHTML=`<div class="stat"><div><b>${Math.floor(avgH/60)}:${pad(Math.round(avgH%60))}</b><span>Avg. sleep</span></div><div><b style="color:${col(avgS)}">${avgS}</b><span>Avg. score</span></div><div><b>±${sd}m</b><span>Bedtime</span></div></div>
   <div class="bars">${days.map(d=>`<div>${d.e?`<span>${d.e.score}</span><i style="height:${Math.max(4,(d.e.min/600)*100)}%;${d.e.score<60?'background:linear-gradient(180deg,#ffb38a,#d47a6a)':''}"></i>`:'<span>–</span>'}</div>`).join('')}</div>
-  <div class="blabels">${days.map(d=>`<span>${new Date(d.iso+'T12:00').toLocaleDateString('da-DK',{weekday:'short'})}</span>`).join('')}</div>
-  <p class="sub" style="margin:12px 0 0">Bedste nat: <b style="text-transform:capitalize">${dayName(best.iso)}</b> (${best.e.score}). ${tip}</p>`;
+  <div class="blabels">${days.map(d=>`<span>${new Date(d.iso+'T12:00').toLocaleDateString('en-GB',{weekday:'short'})}</span>`).join('')}</div>
+  <p class="sub" style="margin:12px 0 0">Best night: <b style="text-transform:capitalize">${dayName(best.iso)}</b> (${best.e.score}). ${tip}</p>`;
   if(!S.premium)el.style.filter='blur(3px)';else el.style.filter='';
 }
 
-/* tik hvert sekund: ur, påmindelser, vækkeur */
+/* tick every second: clock, reminders, alarm */
 function tick(){
   const d=new Date(),n=nowMin();$('#now').textContent=fmt(n);applyDim();
   if(S.routine.day!==today()){S.routine={day:today(),done:{},fired:{}};renderRoutine()}
-  if(S.remOn){const b=bedMin();ROUTINE.forEach(r=>{if(fmt(b-r.off)===fmt(n)&&!S.routine.fired[r.id]){S.routine.fired[r.id]=1;save();toast(`${r.ic} ${r.t} – kl. ${fmt(n)}`)}})}
+  if(S.remOn){const b=bedMin();ROUTINE.forEach(r=>{if(fmt(b-r.off)===fmt(n)&&!S.routine.fired[r.id]){S.routine.fired[r.id]=1;save();toast(`${r.ic} ${r.t} – ${fmt(n)}`)}})}
   const a=S.alarm,key=d.toDateString();
   if(a.snooze&&Date.now()>=a.snooze){a.snooze=null;save();ring(15000)}
   if(a.on&&a.firedDay!==key){const t=toMin(a.time);let start=a.win?t-a.win:t;
-    if(a.phase&&S.premium&&a.win){/* simuleret: let søvn registreres et tilfældigt sted i tidsrummet */
+    if(a.phase&&S.premium&&a.win){/* simulated: light sleep detected at a random point in the window */
       if(a.phaseAt==null||a.phaseFor!==key){a.phaseAt=t-Math.floor(Math.random()*a.win);a.phaseFor=key;save()}start=a.phaseAt}
     if(n===start||(n>start&&n<=t&&!ringNodes)){a.firedDay=key;save();ring(a.phase&&S.premium?20000:Math.max(5,(t-n))*60000)}}
 }
@@ -529,7 +529,7 @@ if('serviceWorker' in navigator && location.protocol==='https:') navigator.servi
 const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
 if(!standalone&&window.top===window.self&&!store.get('hintSeen',false)&&matchMedia('(pointer:coarse)').matches){
   const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
-  setTimeout(()=>{toast(ios?'Tip: Tryk på Del ⬆︎ og vælg „Føj til hjemmeskærm“':'Tip: Åbn menuen ⋮ og vælg „Føj til startskærm“');store.set('hintSeen',true)},1500)}
+  setTimeout(()=>{toast(ios?'Tip: Tap Share ⬆︎ and choose “Add to Home Screen”':'Tip: Open the ⋮ menu and choose “Add to Home screen”');store.set('hintSeen',true)},1500)}
 renderCalc();renderRoutine();renderAlarm();renderStars();preview();renderLog();renderSounds();renderPrem();tick();setInterval(tick,1000);
 })();
 </script>

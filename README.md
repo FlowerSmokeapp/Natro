@@ -1,9 +1,9 @@
-# NATRO – søvnrutine og vækning
+# NATRO – sleep routine & wake-up
 
-Mobil web-app (PWA): angiv hvornår du skal op, og NATRO beregner den bedste sengetid ud fra søvncyklusser. Aftenrutine med påmindelser, automatisk dæmpning om aftenen, blid vækning og søvnlog med score. Premium (demo): søvnlyde, afspændingsøvelser, ugentlig søvnrapport og vækning efter søvnfase.
+Mobile web app (PWA): set when you need to get up, and NATRO calculates your best bedtime based on sleep cycles. Evening routine with reminders, automatic screen dimming in the evening, gentle wake-up and a sleep log with score. Premium (demo): sleep sounds, relaxation exercises, weekly sleep report and sleep-phase wake-up.
 
-- På computer vises appen i en telefon-ramme (`desktop.html`).
-- På mobil åbner den som normal app og kan gemmes på hjemmeskærmen (virker også offline).
-- Data gemmes lokalt på enheden (localStorage).
+- On desktop the app is shown in a phone frame (`desktop.html`).
+- On mobile it opens as a normal app and can be added to the home screen (also works offline).
+- Data is stored locally on the device (localStorage).
 
-Kør lokalt: `python3 -m http.server` og åbn http://localhost:8000
+Run locally: `python3 -m http.server` and open http://localhost:8000
