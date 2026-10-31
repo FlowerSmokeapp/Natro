@@ -15,7 +15,7 @@
 <script>
 (function(){ // På computer: vis appen i en telefon-ramme
   var standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  var desktop = matchMedia('(min-width: 760px) and (hover: hover) and (pointer: fine)').matches;
+  var desktop = matchMedia('(min-width: 600px) and (min-height: 700px) and (hover: hover) and (pointer: fine)').matches;
   var framed = window.top !== window.self;
   if(framed) document.documentElement.className += ' framed';
   if(desktop && !standalone && !framed && location.protocol.indexOf('http')===0 && !/[?&]app/.test(location.search)) location.replace('desktop.html');
@@ -104,7 +104,8 @@ ul.feat li:before{content:"✦";color:var(--gold)}
 .breath{width:180px;height:180px;margin:14px auto;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:18px;
   background:radial-gradient(circle,#8fa8ff55,#8fa8ff11 70%);border:2px solid #8fa8ff66;transition:transform 4s ease-in-out}
 .toast{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top));transform:translateX(-50%) translateY(-200%);background:#24317a;border:1px solid #4a5bb0;
-  padding:12px 16px;border-radius:14px;z-index:60;max-width:92%;font-weight:700;transition:transform .35s;box-shadow:0 10px 30px #0008}
+  padding:12px 16px;border-radius:14px;z-index:60;max-width:92%;font-weight:700;transition:transform .35s,opacity .35s;box-shadow:0 10px 30px #0008}
+.toast:not(.show){opacity:0}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .ring{position:fixed;inset:0;z-index:70;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;
   background:linear-gradient(180deg,#1b2a6e,#f6b98a);text-align:center;padding:24px}
@@ -118,7 +119,8 @@ ul.feat li:before{content:"✦";color:var(--gold)}
 .stat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
 .stat div{background:#0e174099;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
 .stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--muted)}
-.framed .app{padding-top:58px}
+.framed .app{padding-top:62px}
+.framed nav button{padding-bottom:26px}
 .framed .toast{top:58px}
 .stars-bg{position:fixed;inset:0;z-index:-1;pointer-events:none}
 </style>
